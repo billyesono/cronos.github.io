@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronos Airlines - Gestión de Pasajeros</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-plane-departure me-2"></i>
+                Cronos Airlines
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="bi bi-house-door me-1"></i>Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-people me-1"></i>Pasajeros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-airplane me-1"></i>Vuelos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-gear me-1"></i>Configuración</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid main-content">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4 sidebar">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-funnel me-2"></i>Filtros</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="searchInput" class="form-label">Buscar pasajero</label>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Nombre, DNI, asiento...">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="classFilter" class="form-label">Clase</label>
+                            <select class="form-select" id="classFilter">
+                                <option value="">Todas las clases</option>
+                                <option value="Primera">Primera Clase</option>
+                                <option value="Business">Business</option>
+                                <option value="Economy">Economy</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="statusFilter" class="form-label">Estado</label>
+                            <select class="form-select" id="statusFilter">
+                                <option value="">Todos los estados</option>
+                                <option value="Confirmado">Confirmado</option>
+                                <option value="En espera">En espera</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-outline-primary w-100" id="clearFilters">
+                            <i class="bi bi-arrow-clockwise me-1"></i>Limpiar filtros
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm mt-3">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-graph-up me-2"></i>Estadísticas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Total pasajeros:</span>
+                            <span class="badge bg-primary" id="totalPassengers">0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Confirmados:</span>
+                            <span class="badge bg-success" id="confirmedPassengers">0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>En espera:</span>
+                            <span class="badge bg-warning" id="waitingPassengers">0</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Cancelados:</span>
+                            <span class="badge bg-danger" id="cancelledPassengers">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="col-lg-9 col-md-8">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">
+                        <i class="bi bi-people-fill me-2 text-primary"></i>
+                        Gestión de Pasajeros
+                    </h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPassengerModal">
+                        <i class="bi bi-plus-circle me-1"></i>Agregar Pasajero
+                    </button>
+                </div>
+                
+                <!-- Passenger Table -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="mb-0">Lista de Pasajeros</h5>
+                            </div>
+                            <div class="col-auto">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="exportBtn">
+                                        <i class="bi bi-download me-1"></i>Exportar
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="printBtn">
+                                        <i class="bi bi-printer me-1"></i>Imprimir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="passengersTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th><i class="bi bi-person me-1"></i>Pasajero</th>
+                                        <th><i class="bi bi-card-text me-1"></i>DNI</th>
+                                        <th><i class="bi bi-airplane me-1"></i>Vuelo</th>
+                                        <th><i class="bi bi-seat me-1"></i>Asiento</th>
+                                        <th><i class="bi bi-star me-1"></i>Clase</th>
+                                        <th><i class="bi bi-circle me-1"></i>Estado</th>
+                                        <th><i class="bi bi-calendar me-1"></i>Fecha</th>
+                                        <th><i class="bi bi-gear me-1"></i>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="passengersTableBody">
+                                    <!-- Passenger data will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Passenger Modal -->
+    <div class="modal fade" id="addPassengerModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-person-plus me-2"></i>Agregar Nuevo Pasajero
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPassengerForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="dni" class="form-label">DNI</label>
+                                <input type="text" class="form-control" id="dni" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="flightNumber" class="form-label">Número de Vuelo</label>
+                                <input type="text" class="form-control" id="flightNumber" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="seatNumber" class="form-label">Número de Asiento</label>
+                                <input type="text" class="form-control" id="seatNumber" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="passengerClass" class="form-label">Clase</label>
+                                <select class="form-select" id="passengerClass" required>
+                                    <option value="">Seleccionar clase</option>
+                                    <option value="Primera">Primera Clase</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Economy">Economy</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="passengerStatus" class="form-label">Estado</label>
+                                <select class="form-select" id="passengerStatus" required>
+                                    <option value="">Seleccionar estado</option>
+                                    <option value="Confirmado">Confirmado</option>
+                                    <option value="En espera">En espera</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="flightDate" class="form-label">Fecha del Vuelo</label>
+                            <input type="date" class="form-control" id="flightDate" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="savePassengerBtn">
+                        <i class="bi bi-check-circle me-1"></i>Guardar Pasajero
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Passenger Modal -->
+    <div class="modal fade" id="editPassengerModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title">
+                        <i class="bi bi-pencil-square me-2"></i>Editar Pasajero
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPassengerForm">
+                        <input type="hidden" id="editPassengerId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editFirstName" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="editFirstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editLastName" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="editLastName" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editDni" class="form-label">DNI</label>
+                                <input type="text" class="form-control" id="editDni" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="editEmail" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editFlightNumber" class="form-label">Número de Vuelo</label>
+                                <input type="text" class="form-control" id="editFlightNumber" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editSeatNumber" class="form-label">Número de Asiento</label>
+                                <input type="text" class="form-control" id="editSeatNumber" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editPassengerClass" class="form-label">Clase</label>
+                                <select class="form-select" id="editPassengerClass" required>
+                                    <option value="">Seleccionar clase</option>
+                                    <option value="Primera">Primera Clase</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Economy">Economy</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editPassengerStatus" class="form-label">Estado</label>
+                                <select class="form-select" id="editPassengerStatus" required>
+                                    <option value="">Seleccionar estado</option>
+                                    <option value="Confirmado">Confirmado</option>
+                                    <option value="En espera">En espera</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editFlightDate" class="form-label">Fecha del Vuelo</label>
+                            <input type="date" class="form-control" id="editFlightDate" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-warning" id="updatePassengerBtn">
+                        <i class="bi bi-check-circle me-1"></i>Actualizar Pasajero
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html> 
