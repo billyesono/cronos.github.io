@@ -1,0 +1,12 @@
+/* Golden theme customizations */
+.hero{margin-top:20px;padding:28px;border:1px solid rgba(212,175,55,.25);border-radius:16px;background:linear-gradient(180deg,rgba(212,175,55,.08),rgba(16,15,10,.5))}
+.hero h1{margin:0 0 8px;font-size:32px;line-height:1.2;background:linear-gradient(135deg,#f5e6b7,#d4af37 60%,#b88a00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0 0 16px;color:#d8c48a}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.product-card{position:relative}
+.product-media{aspect-ratio:4/3;background:#1a1913;display:flex;align-items:center;justify-content:center}
+.product-media img{object-fit:cover;width:100%;height:100%}
+.product-actions{display:flex;gap:8px;margin-top:10px}
+.wa-icon{width:18px;height:18px}
+.price{font-weight:800;color:#f1d58a}
+.ribbon{position:absolute;top:10px;left:-6px;background:linear-gradient(135deg,#d4af37,#b88a00);color:#100f0a;padding:4px 10px;border-radius:8px;box-shadow:0 6px 16px rgba(212,175,55,.25)}
