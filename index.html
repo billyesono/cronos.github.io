@@ -1,343 +1,409 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronos Airlines - Gestión de Pasajeros</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="fas fa-plane-departure me-2"></i>
-                Cronos Airlines
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="bi bi-house-door me-1"></i>Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-people me-1"></i>Pasajeros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-airplane me-1"></i>Vuelos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-gear me-1"></i>Configuración</a>
-                    </li>
-                </ul>
-            </div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tienda dorada - Productos con WhatsApp">
+    <title>TIENDA Dorada</title>
+    <style>
+      :root{
+        --bs-body-bg:#0b0a07;
+        --bs-body-color:#f6e7c1;
+        --bs-gold:#d4af37;
+        --bs-gold-2:#b88a00;
+        --bs-card:#16140f;
+        --bs-muted:#c9b37a;
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,"Helvetica Neue",Arial;color:var(--bs-body-color);background:radial-gradient(900px 600px at 10% 0%,rgba(212,175,55,.08),transparent 55%),#0b0a07;line-height:1.5}
+      img{max-width:100%;display:block}
+      a{color:inherit;text-decoration:none}
+      html{scroll-behavior:smooth}
+      .container{width:100%;max-width:1140px;margin:0 auto;padding:0 16px}
+      .row{display:flex;flex-wrap:wrap;margin:-8px}
+      .col{padding:8px;flex:1 0 0}
+      .col-12{flex:0 0 100%}
+      @media(min-width:576px){.col-sm-6{flex:0 0 50%}}
+      @media(min-width:768px){.col-md-4{flex:0 0 33.3333%}}
+      .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(212,175,55,.35);background:linear-gradient(180deg,#d4af37,#b88a00);color:#100f0a;padding:10px 14px;border-radius:10px;font-weight:700;box-shadow:0 8px 20px rgba(212,175,55,.25),inset 0 1px 0 rgba(255,255,255,.4);transition:transform .2s ease, box-shadow .2s ease, filter .2s ease}
+      .btn:hover{filter:brightness(1.05);box-shadow:0 10px 26px rgba(212,175,55,.35),inset 0 1px 0 rgba(255,255,255,.5);transform:translateY(-2px)}
+      .btn-outline{background:transparent;color:var(--bs-body-color);border-color:rgba(212,175,55,.5)}
+      .navbar{position:sticky;top:0;z-index:20;background:rgba(16,15,10,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(212,175,55,.2)}
+      .navbar-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+      .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.6px}
+      .brand-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#d4af37,#b88a00);box-shadow:0 6px 16px rgba(212,175,55,.35)}
+      .nav-links{display:flex;gap:14px}
+      .card{background:linear-gradient(180deg,rgba(212,175,55,.06),rgba(16,15,10,.6));border:1px solid rgba(212,175,55,.18);border-radius:14px;overflow:hidden;transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease}
+      .card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 18px 34px rgba(212,175,55,.18);border-color:rgba(212,175,55,.35)}
+      .card-body{padding:14px}
+      .card-title{margin:0 0 6px;font-size:18px}
+      .card-text{margin:0;color:var(--bs-muted);font-size:14px}
+      .badge{display:inline-block;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.35);color:#f6e7c1;border-radius:999px;padding:4px 10px;font-size:12px}
+      .footer{color:var(--bs-muted);text-align:center;padding:24px 0}
+      section[id]{scroll-margin-top:72px}
+      .gap-16{gap:16px}
+      .mt-24{margin-top:24px}
+      .mt-32{margin-top:32px}
+      .hidden{display:none}
+      /* contacto */
+      .contact-grid{display:grid;grid-template-columns:1fr;gap:16px}
+      @media(min-width:768px){.contact-grid{grid-template-columns:1.1fr .9fr}}
+      .contact-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+      .contact-item{display:flex;gap:10px;align-items:flex-start}
+      .contact-icon{width:20px;height:20px;flex:0 0 20px;margin-top:2px;color:var(--bs-gold)}
+      .map-embed{width:100%;min-height:260px;border:1px solid rgba(212,175,55,.25);border-radius:12px;overflow:hidden;background:#0b0a07}
+      /* Banner */
+      .banner{position:relative;isolation:isolate}
+      .banner-inner{min-height:48vh;border:1px solid rgba(212,175,55,.25);border-radius:16px;overflow:hidden;background:#0b0a07}
+      .banner-bg{position:absolute;inset:0;background-image:url('recursor/img/10.png');background-size:cover;background-position:center;background-repeat:no-repeat;transform:scale(1.02);filter:saturate(1.05) brightness(.85);opacity:1;transition:opacity .8s ease}
+      .banner::before{content:"";position:absolute;inset:0;border-radius:16px;background:radial-gradient(1200px 600px at 10% 10%,rgba(212,175,55,.18),transparent 40%),linear-gradient(180deg,rgba(11,10,7,.2),rgba(11,10,7,.75));z-index:0}
+      .banner-content{position:relative;z-index:1;padding:40px;display:flex;flex-direction:column;justify-content:flex-end;min-height:48vh}
+      .banner h1{margin:0 0 10px;font-size:36px;line-height:1.15;background:linear-gradient(135deg,#fff,#f5e6b7 40%,#d4af37 70%,#b88a00);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 6px 28px rgba(212,175,55,.25)}
+      .banner p{margin:0 0 16px;color:#f1e3b0;max-width:720px}
+      .banner-ctas{display:flex;gap:10px;flex-wrap:wrap}
+      @media (min-width:768px){.banner-inner{min-height:56vh}.banner-content{min-height:56vh}.banner h1{font-size:48px}}
+      .hero{margin-top:20px;padding:28px;border:1px solid rgba(212,175,55,.25);border-radius:16px;background:linear-gradient(180deg,rgba(212,175,55,.08),rgba(16,15,10,.5))}
+      .hero h1{margin:0 0 8px;font-size:32px;line-height:1.2;background:linear-gradient(135deg,#f5e6b7,#d4af37 60%,#b88a00);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 200%;animation:shimmer 6s ease-in-out infinite}
+      .hero p{margin:0 0 16px;color:#d8c48a}
+      .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+      .product-card{position:relative}
+      .product-media{aspect-ratio:4/3;background:#1a1913;display:flex;align-items:center;justify-content:center}
+      .product-media img{object-fit:cover;width:100%;height:100%;transition:transform .5s ease}
+      .product-card:hover .product-media img{transform:scale(1.04)}
+      .product-actions{display:flex;gap:8px;margin-top:10px}
+      .wa-icon{width:18px;height:18px;transition:transform .25s ease}
+      .btn:hover .wa-icon{transform:translateY(-2px) scale(1.05)}
+      .price{font-weight:800;color:#f1d58a}
+      .ribbon{position:absolute;top:10px;left:-6px;background:linear-gradient(135deg,#d4af37,#b88a00);color:#100f0a;padding:4px 10px;border-radius:8px;box-shadow:0 6px 16px rgba(212,175,55,.25)}
+      /* reveal on scroll */
+      .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
+      .reveal.reveal-visible{opacity:1;transform:none}
+      /* keyframes */
+      @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+      @media (prefers-reduced-motion: reduce){
+        .btn,.card,.product-media img,.hero h1{animation:none;transition:none}
+        .reveal{opacity:1;transform:none}
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container navbar-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <span>TIENDA</span>
         </div>
+        <div class="nav-links">
+          <a href="#inicio">Inicio</a>
+          <a href="#productos">Productos</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </div>
+      <div id="menu" class="container hidden" style="padding-bottom:12px">
+        <div class="row">
+
+        </div>
+      </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container-fluid main-content">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-lg-3 col-md-4 sidebar">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0"><i class="bi bi-funnel me-2"></i>Filtros</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="searchInput" class="form-label">Buscar pasajero</label>
-                            <input type="text" class="form-control" id="searchInput" placeholder="Nombre, DNI, asiento...">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="classFilter" class="form-label">Clase</label>
-                            <select class="form-select" id="classFilter">
-                                <option value="">Todas las clases</option>
-                                <option value="Primera">Primera Clase</option>
-                                <option value="Business">Business</option>
-                                <option value="Economy">Economy</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="statusFilter" class="form-label">Estado</label>
-                            <select class="form-select" id="statusFilter">
-                                <option value="">Todos los estados</option>
-                                <option value="Confirmado">Confirmado</option>
-                                <option value="En espera">En espera</option>
-                                <option value="Cancelado">Cancelado</option>
-                            </select>
-                        </div>
-                        
-                        <button class="btn btn-outline-primary w-100" id="clearFilters">
-                            <i class="bi bi-arrow-clockwise me-1"></i>Limpiar filtros
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="card shadow-sm mt-3">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="mb-0"><i class="bi bi-graph-up me-2"></i>Estadísticas</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Total pasajeros:</span>
-                            <span class="badge bg-primary" id="totalPassengers">0</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Confirmados:</span>
-                            <span class="badge bg-success" id="confirmedPassengers">0</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>En espera:</span>
-                            <span class="badge bg-warning" id="waitingPassengers">0</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span>Cancelados:</span>
-                            <span class="badge bg-danger" id="cancelledPassengers">0</span>
-                        </div>
-                    </div>
-                </div>
+    <main class="container" id="inicio">
+      <section class="banner reveal" aria-label="Banner principal con imagen de fondo">
+        <div class="banner-inner">
+          <div class="banner-bg" aria-hidden="true"></div>
+          <div class="banner-content">
+            <h1>Descubre l</h1>
+            <p>Elegancia, brillo y diseño premium para elevar tu estilo.</p>
+            <div class="banner-ctas">
+              <a class="btn" href="#productos">Comprar</a>
+              
             </div>
-            
-            <!-- Main Content Area -->
-            <div class="col-lg-9 col-md-8">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="mb-0">
-                        <i class="bi bi-people-fill me-2 text-primary"></i>
-                        Gestión de Pasajeros
-                    </h2>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPassengerModal">
-                        <i class="bi bi-plus-circle me-1"></i>Agregar Pasajero
-                    </button>
-                </div>
-                
-                <!-- Passenger Table -->
-                <div class="card shadow-sm">
-                    <div class="card-header bg-light">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h5 class="mb-0">Lista de Pasajeros</h5>
-                            </div>
-                            <div class="col-auto">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="exportBtn">
-                                        <i class="bi bi-download me-1"></i>Exportar
-                                    </button>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="printBtn">
-                                        <i class="bi bi-printer me-1"></i>Imprimir
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0" id="passengersTable">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th><i class="bi bi-person me-1"></i>Pasajero</th>
-                                        <th><i class="bi bi-card-text me-1"></i>DNI</th>
-                                        <th><i class="bi bi-airplane me-1"></i>Vuelo</th>
-                                        <th><i class="bi bi-seat me-1"></i>Asiento</th>
-                                        <th><i class="bi bi-star me-1"></i>Clase</th>
-                                        <th><i class="bi bi-circle me-1"></i>Estado</th>
-                                        <th><i class="bi bi-calendar me-1"></i>Fecha</th>
-                                        <th><i class="bi bi-gear me-1"></i>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="passengersTableBody">
-                                    <!-- Passenger data will be loaded here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
+      </section>
 
-    <!-- Add Passenger Modal -->
-    <div class="modal fade" id="addPassengerModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">
-                        <i class="bi bi-person-plus me-2"></i>Agregar Nuevo Pasajero
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addPassengerForm">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="firstName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="firstName" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="lastName" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="lastName" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="dni" class="form-label">DNI</label>
-                                <input type="text" class="form-control" id="dni" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="flightNumber" class="form-label">Número de Vuelo</label>
-                                <input type="text" class="form-control" id="flightNumber" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="seatNumber" class="form-label">Número de Asiento</label>
-                                <input type="text" class="form-control" id="seatNumber" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="passengerClass" class="form-label">Clase</label>
-                                <select class="form-select" id="passengerClass" required>
-                                    <option value="">Seleccionar clase</option>
-                                    <option value="Primera">Primera Clase</option>
-                                    <option value="Business">Business</option>
-                                    <option value="Economy">Economy</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="passengerStatus" class="form-label">Estado</label>
-                                <select class="form-select" id="passengerStatus" required>
-                                    <option value="">Seleccionar estado</option>
-                                    <option value="Confirmado">Confirmado</option>
-                                    <option value="En espera">En espera</option>
-                                    <option value="Cancelado">Cancelado</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="flightDate" class="form-label">Fecha del Vuelo</label>
-                            <input type="date" class="form-control" id="flightDate" required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="bi bi-x-circle me-1"></i>Cancelar
-                    </button>
-                    <button type="button" class="btn btn-primary" id="savePassengerBtn">
-                        <i class="bi bi-check-circle me-1"></i>Guardar Pasajero
-                    </button>
-                </div>
-            </div>
+
+      <section id="productos" class="mt-32">
+        <div class="row" style="align-items:baseline;">
+          <div class="col col-12 reveal">
+            <h2 style="margin:0 0 12px;">Productos</h2>
+          </div>
         </div>
-    </div>
 
-    <!-- Edit Passenger Modal -->
-    <div class="modal fade" id="editPassengerModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-warning text-dark">
-                    <h5 class="modal-title">
-                        <i class="bi bi-pencil-square me-2"></i>Editar Pasajero
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editPassengerForm">
-                        <input type="hidden" id="editPassengerId">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="editFirstName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="editFirstName" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="editLastName" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="editLastName" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="editDni" class="form-label">DNI</label>
-                                <input type="text" class="form-control" id="editDni" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="editEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="editEmail" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="editFlightNumber" class="form-label">Número de Vuelo</label>
-                                <input type="text" class="form-control" id="editFlightNumber" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="editSeatNumber" class="form-label">Número de Asiento</label>
-                                <input type="text" class="form-control" id="editSeatNumber" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="editPassengerClass" class="form-label">Clase</label>
-                                <select class="form-select" id="editPassengerClass" required>
-                                    <option value="">Seleccionar clase</option>
-                                    <option value="Primera">Primera Clase</option>
-                                    <option value="Business">Business</option>
-                                    <option value="Economy">Economy</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="editPassengerStatus" class="form-label">Estado</label>
-                                <select class="form-select" id="editPassengerStatus" required>
-                                    <option value="">Seleccionar estado</option>
-                                    <option value="Confirmado">Confirmado</option>
-                                    <option value="En espera">En espera</option>
-                                    <option value="Cancelado">Cancelado</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editFlightDate" class="form-label">Fecha del Vuelo</label>
-                            <input type="date" class="form-control" id="editFlightDate" required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="bi bi-x-circle me-1"></i>Cancelar
-                    </button>
-                    <button type="button" class="btn btn-warning" id="updatePassengerBtn">
-                        <i class="bi bi-check-circle me-1"></i>Actualizar Pasajero
-                    </button>
-                </div>
+        <div class="products">
+          <article class="card product-card reveal" data-product-name="Set de Copas Doradas">
+            <div class="ribbon">Nuevo</div>
+            <div class="product-media">
+              <img src="recursor/img/2.jpeg" alt="Set de Copas Doradas">
             </div>
-        </div>
-    </div>
+            <div class="card-body">
+              <h3 class="card-title">Bolsos</h3>
+              <p class="card-text"> ideal para celebraciones.</p>
+              <div class="product-actions">
+                <a data-action="wa" class="btn" href="https://wa.me/240222550350?text=me%20interesa%20el%20bolso" aria-label="Comprar por WhatsApp">
+                  <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#128C7E"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#g)"/><path fill="#fff" d="M23 18.8c-.1 0-2-.9-2.3-1s-.5-.1-.7 .2c-.2 .3-.8 1-1 1.2-.2 .2-.4 .2-.7 .1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.8-1.6-2.1-.2-.3 0-.5 .1-.6.1-.1 .3-.3 .4-.5.2-.1 .2-.3 .3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.5c-.3-.7-.6-.6-.8-.6h-.6c-.2 0-.5 .1-.7 .3-.2 .2-.9 .9-.9 2.1s1 2.5 1.1 2.7c.1 .2 2 3.1 4.7 4.3.7 .3 1.2 .5 1.6 .6.7 .2 1.3 .2 1.8 .1 .6-.1 2-.8 2.3-1.6.3-.8.3-1.4 .2-1.6-.1-.2-.2-.2-.3-.2z"/></svg>
+                  Consultar
+                </a>
+              </div>
+            </div>
+          </article>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JS -->
-    <script src="script.js"></script>
-</body>
-</html> 
+          <article class="card product-card reveal" data-product-name="Reloj Clásico Dorado">
+            <div class="product-media">
+              <img src="recursor/img/3.jpeg" alt="Reloj Clásico Dorado">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"></h3>
+              <p class="card-text">Minimalista, elegante y atemporal.</p>
+              <div class="product-actions">
+                <a data-action="wa" class="btn" href="https://wa.me/240222550350?text=me%20interesa%20el%20bolso" aria-label="Comprar por WhatsApp">
+                  <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#128C7E"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#g2)"/><path fill="#fff" d="M23 18.8c-.1 0-2-.9-2.3-1s-.5-.1-.7 .2c-.2 .3-.8 1-1 1.2-.2 .2-.4 .2-.7 .1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.8-1.6-2.1-.2-.3 0-.5 .1-.6.1-.1 .3-.3 .4-.5.2-.1 .2-.3 .3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.5c-.3-.7-.6-.6-.8-.6h-.6c-.2 0-.5 .1-.7 .3-.2 .2-.9 .9-.9 2.1s1 2.5 1.1 2.7c.1 .2 2 3.1 4.7 4.3.7 .3 1.2 .5 1.6 .6.7 .2 1.3 .2 1.8 .1 .6-.1 2-.8 2.3-1.6.3-.8.3-1.4 .2-1.6-.1-.2-.2-.2-.3-.2z"/></svg>
+                  Consultar
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card product-card reveal" data-product-name="Bolso Dorado Deluxe">
+            <div class="product-media">
+              <img src="recursor/img/4.jpeg" alt="Bolso Dorado Deluxe">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Bolso Dorado Deluxe</h3>
+              <p class="card-text">Texturas suaves y brillos sutiles.</p>
+              <div class="product-actions">
+                <a data-action="wa" class="btn" href="https://wa.me/240222550350?text=me%20interesa%20el%20bolso" aria-label="Comprar por WhatsApp">
+                  <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#128C7E"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#g3)"/><path fill="#fff" d="M23 18.8c-.1 0-2-.9-2.3-1s-.5-.1-.7 .2c-.2 .3-.8 1-1 1.2-.2 .2-.4 .2-.7 .1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.8-1.6-2.1-.2-.3 0-.5 .1-.6.1-.1 .3-.3 .4-.5.2-.1 .2-.3 .3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.5c-.3-.7-.6-.6-.8-.6h-.6c-.2 0-.5 .1-.7 .3-.2 .2-.9 .9-.9 2.1s1 2.5 1.1 2.7c.1 .2 2 3.1 4.7 4.3.7 .3 1.2 .5 1.6 .6.7 .2 1.3 .2 1.8 .1 .6-.1 2-.8 2.3-1.6.3-.8.3-1.4 .2-1.6-.1-.2-.2-.2-.3-.2z"/></svg>
+                  Consultar
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card product-card reveal" data-product-name="Bolso Dorado Deluxe">
+            <div class="product-media">
+              <img src="recursor/img/5.jpeg" alt="Bolso Dorado Deluxe">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"></h3>
+              <p class="card-text">Texturas suaves y brillos sutiles.</p>
+              <div class="product-actions">
+                <a data-action="wa" class="btn" href="https://wa.me/240222550350?text=me%20interesa%20el%20bolso" aria-label="Comprar por WhatsApp">
+                  <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#128C7E"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#g3)"/><path fill="#fff" d="M23 18.8c-.1 0-2-.9-2.3-1s-.5-.1-.7 .2c-.2 .3-.8 1-1 1.2-.2 .2-.4 .2-.7 .1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.8-1.6-2.1-.2-.3 0-.5 .1-.6.1-.1 .3-.3 .4-.5.2-.1 .2-.3 .3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.5c-.3-.7-.6-.6-.8-.6h-.6c-.2 0-.5 .1-.7 .3-.2 .2-.9 .9-.9 2.1s1 2.5 1.1 2.7c.1 .2 2 3.1 4.7 4.3.7 .3 1.2 .5 1.6 .6.7 .2 1.3 .2 1.8 .1 .6-.1 2-.8 2.3-1.6.3-.8.3-1.4 .2-1.6-.1-.2-.2-.2-.3-.2z"/></svg>
+                  Consultar
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card product-card reveal" data-product-name="Bolso Dorado Deluxe">
+            <div class="product-media">
+              <img src="recursor/img/6.jpeg" alt="Bolso Dorado Deluxe">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"></h3>
+              <p class="card-text">Texturas suaves y brillos sutiles.</p>
+              <div class="product-actions">
+                <a data-action="wa" class="btn" href="https://wa.me/240222550350?text=me%20interesa%20el%20bolso" aria-label="Comprar por WhatsApp">
+                  <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#128C7E"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#g3)"/><path fill="#fff" d="M23 18.8c-.1 0-2-.9-2.3-1s-.5-.1-.7 .2c-.2 .3-.8 1-1 1.2-.2 .2-.4 .2-.7 .1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.8-1.6-2.1-.2-.3 0-.5 .1-.6.1-.1 .3-.3 .4-.5.2-.1 .2-.3 .3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.5c-.3-.7-.6-.6-.8-.6h-.6c-.2 0-.5 .1-.7 .3-.2 .2-.9 .9-.9 2.1s1 2.5 1.1 2.7c.1 .2 2 3.1 4.7 4.3.7 .3 1.2 .5 1.6 .6.7 .2 1.3 .2 1.8 .1 .6-.1 2-.8 2.3-1.6.3-.8.3-1.4 .2-1.6-.1-.2-.2-.2-.3-.2z"/></svg>
+                  Consultar
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card product-card reveal" data-product-name="Bolso Dorado Deluxe">
+            <div class="product-media">
+              <img src="recursor/img/7.jpeg" alt="Bolso Dorado Deluxe">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"></h3>
+              <p class="card-text">Texturas suaves y brillos sutiles.</p>
+              <div class="product-actions">
+                <a data-action="wa" class="btn" href="https://wa.me/240222550350?text=me%20interesa%20el%20bolso" aria-label="Comprar por WhatsApp">
+                  <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#128C7E"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#g3)"/><path fill="#fff" d="M23 18.8c-.1 0-2-.9-2.3-1s-.5-.1-.7 .2c-.2 .3-.8 1-1 1.2-.2 .2-.4 .2-.7 .1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.8-1.6-2.1-.2-.3 0-.5 .1-.6.1-.1 .3-.3 .4-.5.2-.1 .2-.3 .3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.5c-.3-.7-.6-.6-.8-.6h-.6c-.2 0-.5 .1-.7 .3-.2 .2-.9 .9-.9 2.1s1 2.5 1.1 2.7c.1 .2 2 3.1 4.7 4.3.7 .3 1.2 .5 1.6 .6.7 .2 1.3 .2 1.8 .1 .6-.1 2-.8 2.3-1.6.3-.8.3-1.4 .2-1.6-.1-.2-.2-.2-.3-.2z"/></svg>
+                  Consultar
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card product-card reveal" data-product-name="Bolso Dorado Deluxe">
+            <div class="product-media">
+              <img src="recursor/img/8.jpeg" alt="Bolso Dorado Deluxe">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"></h3>
+              <p class="card-text">Texturas suaves y brillos sutiles.</p>
+              <div class="product-actions">
+                <a data-action="wa" class="btn" href="https://wa.me/240222550350?text=me%20interesa%20el%20bolso" aria-label="Comprar por WhatsApp">
+                  <svg class="wa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"><defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#128C7E"/></linearGradient></defs><circle cx="16" cy="16" r="14" fill="url(#g3)"/><path fill="#fff" d="M23 18.8c-.1 0-2-.9-2.3-1s-.5-.1-.7 .2c-.2 .3-.8 1-1 1.2-.2 .2-.4 .2-.7 .1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.8-1.6-2.1-.2-.3 0-.5 .1-.6.1-.1 .3-.3 .4-.5.2-.1 .2-.3 .3-.5.1-.2 0-.4 0-.5s-.7-1.8-1-2.5c-.3-.7-.6-.6-.8-.6h-.6c-.2 0-.5 .1-.7 .3-.2 .2-.9 .9-.9 2.1s1 2.5 1.1 2.7c.1 .2 2 3.1 4.7 4.3.7 .3 1.2 .5 1.6 .6.7 .2 1.3 .2 1.8 .1 .6-.1 2-.8 2.3-1.6.3-.8.3-1.4 .2-1.6-.1-.2-.2-.2-.3-.2z"/></svg>
+                  Consultar
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section id="contacto" class="mt-32 reveal">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title" style="margin-bottom:6px;">Contacto</h3>
+            <p class="card-text" style="margin-bottom:14px">¿Tienes dudas? Escríbenos por WhatsApp, llámanos o visítanos.</p>
+            <div class="contact-grid">
+              <div>
+                <ul class="contact-list">
+                  <li class="contact-item">
+                    <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+                    <div>
+                      <div><strong>Ubicación</strong></div>
+                      <div class="card-text">Malabo</div>
+                    </div>
+                  </li>
+                  <li class="contact-item">
+                    <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4h10a2 2 0 012 2v1H5V6a2 2 0 012-2zm14 5v7a2 2 0 01-2 2H5a2 2 0 01-2-2V9h18z"/></svg>
+                    <div>
+                      <div><strong>País</strong></div>
+                      <div class="card-text">Guinea Ecuatorial</div>
+                    </div>
+                  </li>
+                  <li class="contact-item">
+                    <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l1.87-1.87a1 1 0 011.01-.24c1.1.37 2.29.57 3.51.57a1 1 0 011 1V20a1 1 0 01-1 1C10.4 21 3 13.6 3 4a1 1 0 011-1h2.25a1 1 0 011 1c0 1.22.2 2.41.57 3.51a1 1 0 01-.25 1.01l-1.95 1.95z"/></svg>
+                    <div>
+                      <div><strong>Teléfono</strong></div>
+                      <div class="card-text"><a href="tel:+240222550350">+240 222 550 350</a></div>
+                    </div>
+                  </li>
+                  <li class="contact-item">
+                    <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm-1.4 4.25l-6.2 4.65a1 1 0 01-1.2 0L5 8.25A1 1 0 016.2 6.7L12 10.95 17.8 6.7a1 1 0 011.2 1.55z"/></svg>
+                    <div>
+                      <div><strong>Email</strong></div>
+                      <div class="card-text"><a href="mailto:tienda@example.com"></a></div>
+                    </div>
+                  </li>
+                  <li class="contact-item">
+                    <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.36a2.25 2.25 0 00-3.2 0L15.2 5.48a.75.75 0 000 1.06l2.26 2.26a.75.75 0 001.06 0l2.12-2.12a2.25 2.25 0 000-3.2l-.12-.12zM13.5 7.18L5 15.68V19h3.32l8.5-8.5-3.32-3.32z"/></svg>
+                    <div>
+                      <div><strong>WhatsApp</strong></div>
+                      <div class="card-text"><a data-action="wa" class="btn" href="https://wa.me/240222550350" target="_blank" rel="noopener">Escribir por WhatsApp</a></div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        © <span id="year"></span> TIENDA. Hecho con estilo dorado.
+      </div>
+    </main>
+
+    <script>
+      // Minimal collapse/toggler (no dependencias)
+      (function(){
+        document.addEventListener('click', function(e){
+          var t = e.target.closest('[data-bs-toggle]="collapse"]');
+          if(!t) t = e.target.closest('[data-bs-toggle="collapse"]');
+          if(!t) return;
+          var sel = t.getAttribute('data-bs-target');
+          if(!sel) return;
+          var el = document.querySelector(sel);
+          if(!el) return;
+          el.classList.toggle('hidden');
+        });
+      })();
+
+      // Genera enlaces de WhatsApp con mensaje largo y emojis, personalizado
+      (function(){
+        function buildMessage(productName){
+          var lines = [];
+          lines.push('¡Hola TIENDA! 👋✨');
+          lines.push('Me gustaría obtener más información sobre los productos de la tienda 👜');
+          if(productName){ lines.push('  ✅'); }
+          lines.push('¿Disponibilidad, precio y formas de entrega? 🚚💳');
+          lines.push('¡Gracias! 🙏');
+          return lines.join('\n');
+        }
+        function setTextParam(baseHref, productName){
+          try{
+            var url = new URL(baseHref);
+            url.searchParams.set('text', buildMessage(productName));
+            return url.toString();
+          }catch(e){
+            var sep = baseHref.indexOf('?') >= 0 ? '&' : '?';
+            return baseHref + sep + 'text=' + encodeURIComponent(buildMessage(productName));
+          }
+        }
+        document.querySelectorAll('[data-product-name]').forEach(function(card){
+          var wa = card.querySelector('[data-action="wa"]');
+          if(!wa) return;
+          var base = wa.getAttribute('href') || '';
+          if(base.startsWith('https://wa.me/')){
+            var name = card.getAttribute('data-product-name') || '';
+            wa.setAttribute('href', setTextParam(base, name));
+          }
+        });
+        // botón de WhatsApp en Contacto (sin producto)
+        var contactBtn = document.querySelector('#contacto [data-action="wa"]');
+        if(contactBtn){
+          var base2 = contactBtn.getAttribute('href') || '';
+          if(base2.startsWith('https://wa.me/')){
+            contactBtn.setAttribute('href', setTextParam(base2, 'Consulta general 📦'));
+          }
+        }
+      })();
+
+      // Animaciones de aparición con IntersectionObserver
+      (function(){
+        var items = document.querySelectorAll('.reveal');
+        if(!('IntersectionObserver' in window)){
+          items.forEach(function(it){ it.classList.add('reveal-visible'); });
+          return;
+        }
+        var obs = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              entry.target.classList.add('reveal-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, {threshold: 0.15});
+        items.forEach(function(it){ obs.observe(it); });
+      })();
+
+      // Slider automático del banner (5 imágenes)
+      (function(){
+        var imgs = [
+          'recursor/img/10.png',
+          'recursor/img/2.jpeg',
+          'recursor/img/3.jpeg',
+          'recursor/img/4.jpeg',
+          'recursor/img/5.jpeg'
+        ];
+        var idx = 0;
+        var el = document.querySelector('.banner-bg');
+        if(!el) return;
+        function show(i){
+          el.style.opacity = '0';
+          setTimeout(function(){
+            el.style.backgroundImage = "url('" + imgs[i] + "')";
+            el.style.opacity = '1';
+          }, 350);
+        }
+        setInterval(function(){
+          idx = (idx + 1) % imgs.length;
+          show(idx);
+        }, 4000);
+      })();
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
